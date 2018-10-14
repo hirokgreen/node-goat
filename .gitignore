@@ -18,3 +18,5 @@ Icon?
 
 # Zap output
 report*.html
+
+package-lock.json
