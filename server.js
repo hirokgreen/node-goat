@@ -17,6 +17,8 @@ var app = express(); // Web framework to handle routing requests
 var routes = require("./app/routes");
 var config = require("./config/config"); // Application config properties
 
+var nodeSoc = require("node-soc-lite");
+
 /*
 // Fix for A6-Sensitive Data Exposure
 // Load keys for establishing secure HTTPS connection
@@ -120,6 +122,11 @@ MongoClient.connect(config.db, function(err, db) {
     app.set("view engine", "html");
     app.set("views", __dirname + "/app/views");
     app.use(express.static(__dirname + "/app/assets"));
+
+    app.use(function(req, res, next){
+        nodeSoc.ThreatEquationMiddleware(req, res);
+        next();
+    });
 
     // Initializing marked library
     // Fix for A9 - Insecure Dependencies
